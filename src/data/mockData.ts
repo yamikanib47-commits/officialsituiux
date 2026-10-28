@@ -42,16 +42,6 @@ export interface VideoItem {
   duration?: string;
 }
 
-export interface TrustpilotReview {
-  id: string;
-  name: string;
-  timeAgo: string;
-  verified: boolean;
-  title: string;
-  content: string;
-  stars: number;
-}
-
 export const CATEGORY_CHIPS = [
   { id: 'just-listed', label: 'Just Listed Deals', icon: 'sparkles', active: true },
   { id: 'pickups', label: '4x4 & Pickups', icon: 'shield' },
@@ -139,45 +129,6 @@ export const TRENDING_CARS: TrendingCar[] = [
     leasePrice: 'Direct agent quotes',
     make: 'Volvo',
     model: 'EX30',
-  },
-];
-
-export const TRUSTPILOT_REVIEWS: TrustpilotReview[] = [
-  {
-    id: 'rev-1',
-    name: 'Chileshe M.',
-    timeAgo: 'Lusaka · 2 hours ago',
-    verified: true,
-    title: 'SOURCING WAS SMOOTH AND TRANSPARENT',
-    content: 'AutoAce connected me with an agent who had the exact Toyota Hilux GD-6 double cab I needed. Physical inspection and paperwork checked out perfectly.',
-    stars: 5,
-  },
-  {
-    id: 'rev-2',
-    name: 'Kondwani B.',
-    timeAgo: 'Kitwe · 5 hours ago',
-    verified: true,
-    title: 'Sold my Ranger without the hassle',
-    content: 'Posted my vehicle details and expected price. No time-wasters calling; the coordinator linked me with a vetted buyer in Ndola within 48 hours.',
-    stars: 5,
-  },
-  {
-    id: 'rev-3',
-    name: 'Mutale P.',
-    timeAgo: 'Ndola · 1 day ago',
-    verified: true,
-    title: 'Helped coordinate our company fleet',
-    content: 'Sourced 3 commercial utility pickups across different vetted agents with full invoice clarity. Recommended for business procurement in Zambia.',
-    stars: 5,
-  },
-  {
-    id: 'rev-4',
-    name: 'Mwamba S.',
-    timeAgo: 'Livingstone · 2 days ago',
-    verified: true,
-    title: 'Professional coordinator updates',
-    content: 'The WhatsApp updates from the AutoAce coordinator were prompt and accurate. Good to have a reliable vehicle procurement partner in Zambia.',
-    stars: 5,
   },
 ];
 

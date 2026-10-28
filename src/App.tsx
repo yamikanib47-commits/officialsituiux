@@ -10,7 +10,6 @@ import { CategoryChips } from './components/CategoryChips';
 import { FuelBanner } from './components/FuelBanner';
 import { BrowseDeals } from './components/BrowseDeals';
 import { ElectricTrending } from './components/ElectricTrending';
-import { TrustpilotReviews } from './components/TrustpilotReviews';
 import { EditorialDarkSection } from './components/EditorialDarkSection';
 import { ElectricRevolution } from './components/ElectricRevolution';
 import { ExploreCars } from './components/ExploreCars';
@@ -192,9 +191,6 @@ export default function App() {
           onNavigateToShowroom={navigateToShowroom}
           onNavigateToDeal={navigateToDeal}
         />
-
-        {/* 7. Trustpilot Reviews & Partners We Trust */}
-        <TrustpilotReviews />
 
         {/* 8. Editorial Dark Section: Mat Watson, Reviews, News & Videos */}
         <EditorialDarkSection />

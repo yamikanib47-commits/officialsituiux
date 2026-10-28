@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { CarwowAsteriskLogo } from '../components/CarwowWordmark';
+import { AutoaceLogo } from '../components/AutoaceLogo';
 import {
   ChevronLeft,
   CheckCircle2,
@@ -362,7 +362,7 @@ export const SellACarPage: React.FC<SellACarPageProps> = ({
                 className="hover:opacity-80 transition-opacity cursor-pointer inline-flex items-center"
                 title="Return to Autoace Home"
               >
-                <CarwowAsteriskLogo className="w-[150px] h-[150px] object-contain" darkText={true} style={{ width: '150px', height: '150px', objectFit: 'contain' }} />
+                <AutoaceLogo variant="light-mode" className="w-[150px] h-[150px] object-contain" style={{ width: '150px', height: '150px', objectFit: 'contain' }} />
               </button>
             </div>
 

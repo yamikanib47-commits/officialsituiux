@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CarwowLogo } from './CarIcons';
+import { AutoaceLogo } from './AutoaceLogo';
 import { Menu, X, User, CircleDot, Tag, Sparkles, ChevronRight } from 'lucide-react';
 
 interface HeaderProps {
@@ -47,7 +47,7 @@ export const Header: React.FC<HeaderProps> = ({
                 className="flex items-center hover:opacity-90 transition-opacity cursor-pointer py-1"
                 title="Autoace Home"
               >
-                <CarwowLogo className="w-[150px] h-[150px] object-contain" variant="dark-mode" style={{ width: '150px', height: '150px', objectFit: 'contain' }} />
+                <AutoaceLogo className="w-[150px] h-[150px] object-contain" variant="dark-mode" style={{ width: '150px', height: '150px', objectFit: 'contain' }} />
               </a>
 
               {/* Desktop Nav Links */}

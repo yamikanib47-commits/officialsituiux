@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CarwowAsteriskLogo } from '../components/CarwowWordmark';
+import { AutoaceLogo } from '../components/AutoaceLogo';
 import {
   POPULAR_MAKES,
   ALL_MAKES,
@@ -82,7 +82,7 @@ export const BuyACarPage: React.FC<BuyACarPageProps> = ({ onBackToHome }) => {
         {/* Left Interactive Form Area */}
         <div className="w-full lg:w-[58%] xl:w-[54%] min-h-screen bg-white rounded-t-[28px] lg:rounded-none mt-12 lg:mt-0 p-6 sm:p-10 lg:p-14 flex flex-col justify-between shadow-lg lg:shadow-none">
           <div>
-            {/* Carwow Asterisk Logo */}
+            {/* Brand Logo */}
             <div className="mb-8">
               <button
                 type="button"
@@ -90,7 +90,7 @@ export const BuyACarPage: React.FC<BuyACarPageProps> = ({ onBackToHome }) => {
                 className="hover:opacity-80 transition-opacity cursor-pointer inline-flex items-center"
                 title="Return to Autoace Home"
               >
-                <CarwowAsteriskLogo className="w-[150px] h-[150px] object-contain" darkText={true} style={{ width: '150px', height: '150px', objectFit: 'contain' }} />
+                <AutoaceLogo variant="light-mode" className="w-[150px] h-[150px] object-contain" style={{ width: '150px', height: '150px', objectFit: 'contain' }} />
               </button>
             </div>
 

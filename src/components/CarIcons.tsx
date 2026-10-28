@@ -1,5 +1,4 @@
 import React from 'react';
-import { AutoaceLogo } from './AutoaceLogo';
 
 export const CarSilhouette: React.FC<{ type: string; className?: string }> = ({ type, className = 'w-16 h-8' }) => {
   switch (type) {
@@ -100,21 +99,7 @@ export const CarSilhouette: React.FC<{ type: string; className?: string }> = ({ 
   }
 };
 
-export const CarwowLogo: React.FC<{
-  className?: string;
-  variant?: 'dark-mode' | 'light-mode' | 'dark-footer' | 'light-footer';
-  style?: React.CSSProperties;
-}> = ({
-  className = 'w-[150px] h-[150px] object-contain',
-  variant = 'dark-mode',
-  style,
-}) => (
-  <AutoaceLogo
-    variant={variant}
-    className={`w-[150px] h-[150px] object-contain ${className}`}
-    style={{ width: '150px', height: '150px', objectFit: 'contain', ...style }}
-  />
-);
+
 
 export const TrustpilotStars: React.FC<{ count?: number; className?: string }> = ({ count = 5, className = 'w-4 h-4' }) => (
   <div className="flex items-center gap-1">
