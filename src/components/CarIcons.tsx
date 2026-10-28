@@ -101,7 +101,7 @@ export const CarSilhouette: React.FC<{ type: string; className?: string }> = ({ 
 
 
 
-export const TrustpilotStars: React.FC<{ count?: number; className?: string }> = ({ count = 5, className = 'w-4 h-4' }) => (
+export const RatingStars: React.FC<{ count?: number; className?: string }> = ({ count = 5, className = 'w-4 h-4' }) => (
   <div className="flex items-center gap-1">
     {[...Array(count)].map((_, i) => (
       <div key={i} className="bg-[#00b67a] p-1 flex items-center justify-center">
