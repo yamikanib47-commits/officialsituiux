@@ -1,0 +1,6 @@
+{
+  "name": "carwow UK Clone",
+  "description": "Pixel-accurate clone of carwow.co.uk landing page with EV deals, search widgets, reviews, videos, browse deals, and manufacturer catalog.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

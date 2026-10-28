@@ -1,0 +1,53 @@
+[
+  {
+    "id": "seed-buy-1",
+    "referenceId": "AZ-BUY-8921",
+    "type": "buy",
+    "createdAt": "2026-10-26T21:00:00.000Z",
+    "make": "Toyota",
+    "model": "Hilux GD-6 Double Cab",
+    "yearRange": "2020 - 2023",
+    "budgetZMW": "K 680,000",
+    "location": "Lusaka (Woodlands)",
+    "urgency": "Immediate (Ready to inspect)",
+    "customerName": "Chileshe Mwape",
+    "whatsappNumber": "+260 977 412093",
+    "preferredFuel": "Diesel",
+    "notes": "Looking for automatic transmission, clean interior, service history required.",
+    "status": "Dispatched to Sourcing Agents"
+  },
+  {
+    "id": "seed-sell-1",
+    "referenceId": "AZ-SELL-4019",
+    "type": "sell",
+    "createdAt": "2026-10-26T12:00:00.000Z",
+    "make": "Ford",
+    "model": "Ranger 2.2 TDCi XLT",
+    "year": "2019",
+    "mileage": "78,400 km",
+    "transmission": "Automatic",
+    "fuelType": "Diesel",
+    "condition": "Excellent",
+    "askingPriceZMW": "K 430,000",
+    "location": "Ndola (Kansenshi)",
+    "regNumber": "BAA 4912 B",
+    "sellerName": "Bwalya Tembo",
+    "whatsappNumber": "+260 966 820155",
+    "photosCount": 4,
+    "status": "Shared with Verified Agents"
+  },
+  {
+    "id": "seed-agent-1",
+    "referenceId": "AZ-AGT-1104",
+    "type": "agent",
+    "createdAt": "2026-10-25T14:30:00.000Z",
+    "agencyName": "Apex Motor Sourcing Zambia",
+    "contactPerson": "Kondwani Banda",
+    "whatsappNumber": "+260 955 773190",
+    "operatingTowns": ["Lusaka", "Kitwe", "Ndola"],
+    "specializations": ["Japan Direct Imports", "4x4 & Commercial Pickups", "Local Pre-owned"],
+    "experienceYears": "6+ years",
+    "notes": "Registered sourcing business with bonded clearing clearance and inspection capacity.",
+    "status": "Approved Sourcing Partner"
+  }
+]
