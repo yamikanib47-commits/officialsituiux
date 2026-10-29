@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { AutoaceLogo } from './AutoaceLogo';
-import { Menu, X, User, CircleDot, Tag, Sparkles, ChevronRight } from 'lucide-react';
+import { Menu, X, User, CircleDot, Tag, Sparkles, ChevronRight, ShieldCheck } from 'lucide-react';
 
 interface HeaderProps {
   onNavigateToHome?: () => void;
   onNavigateToBuy?: () => void;
   onNavigateToSell?: () => void;
   onNavigateToShowroom?: () => void;
+  onNavigateToAdmin?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -14,7 +15,9 @@ export const Header: React.FC<HeaderProps> = ({
   onNavigateToBuy,
   onNavigateToSell,
   onNavigateToShowroom,
+  onNavigateToAdmin,
 }) => {
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
@@ -115,6 +118,19 @@ export const Header: React.FC<HeaderProps> = ({
                 <span className="text-[11px] font-semibold tracking-wide mt-0.5">Log In</span>
               </button>
 
+              {/* Admin Portal */}
+              {onNavigateToAdmin && (
+                <button
+                  type="button"
+                  onClick={onNavigateToAdmin}
+                  className="flex flex-col items-center justify-center text-neutral-300 hover:text-[#8574ff] group px-2 py-1 transition-colors cursor-pointer"
+                  title="Admin Dashboard (Analytics, CMS, CRM)"
+                >
+                  <ShieldCheck className="w-5 h-5 group-hover:scale-110 transition-transform text-neutral-300 group-hover:text-[#8574ff]" />
+                  <span className="text-[11px] font-semibold tracking-wide mt-0.5">Admin</span>
+                </button>
+              )}
+
               {/* Menu Hamburger */}
               <button
                 type="button"
@@ -178,9 +194,23 @@ export const Header: React.FC<HeaderProps> = ({
               >
                 Sell my car
               </button>
+              {onNavigateToAdmin && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    onNavigateToAdmin();
+                  }}
+                  className="w-full text-center py-2.5 px-4 bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 text-neutral-200 font-semibold rounded-lg text-sm transition-colors cursor-pointer flex items-center justify-center gap-2"
+                >
+                  <ShieldCheck className="w-4 h-4 text-[#8574ff]" />
+                  <span>Admin Dashboard (Analytics, CMS, CRM)</span>
+                </button>
+              )}
             </div>
           </div>
         )}
+
       </header>
     </>
   );

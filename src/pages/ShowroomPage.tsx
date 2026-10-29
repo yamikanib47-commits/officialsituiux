@@ -1,7 +1,8 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
-import { SHOWROOM_CARS, ShowroomCar } from '../data/showroomData';
+import { ShowroomCar } from '../data/showroomData';
+import { getInventoryCars } from '../services/inventoryService';
 import {
   Search,
   Filter,
@@ -30,6 +31,7 @@ interface ShowroomPageProps {
   onNavigateToBuy: () => void;
   onNavigateToSell: (carPhrase?: string) => void;
   onNavigateToDeal?: (carId: string) => void;
+  onNavigateToAdmin?: () => void;
 }
 
 export const ShowroomPage: React.FC<ShowroomPageProps> = ({
@@ -37,7 +39,9 @@ export const ShowroomPage: React.FC<ShowroomPageProps> = ({
   onNavigateToBuy,
   onNavigateToSell,
   onNavigateToDeal,
+  onNavigateToAdmin,
 }) => {
+
   // Mobile filter drawer toggle
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
 
@@ -104,9 +108,17 @@ export const ShowroomPage: React.FC<ShowroomPageProps> = ({
     setSavedCarIds((prev) => ({ ...prev, [carId]: !prev[carId] }));
   };
 
+  const [allCars, setAllCars] = useState<ShowroomCar[]>(() => getInventoryCars());
+
+  useEffect(() => {
+    const handleUpdate = () => setAllCars(getInventoryCars());
+    window.addEventListener('autoace_inventory_updated', handleUpdate);
+    return () => window.removeEventListener('autoace_inventory_updated', handleUpdate);
+  }, []);
+
   // Filter logic
   const filteredCars = useMemo(() => {
-    let result = [...SHOWROOM_CARS];
+    let result = [...allCars];
 
     // Category
     if (vehicleCategory === 'Vans') {
@@ -210,10 +222,12 @@ export const ShowroomPage: React.FC<ShowroomPageProps> = ({
         onNavigateToHome={onBackToHome}
         onNavigateToBuy={onNavigateToBuy}
         onNavigateToSell={onNavigateToSell}
+        onNavigateToAdmin={onNavigateToAdmin}
         onNavigateToShowroom={() => {
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }}
       />
+
 
       {/* 2. Showroom Top Breadcrumb & Summary Header */}
       <div className="bg-white border-b border-neutral-200">
@@ -1019,7 +1033,7 @@ export const ShowroomPage: React.FC<ShowroomPageProps> = ({
       )}
 
       {/* 6. Universal Footer */}
-      <Footer onNavigateToHome={onBackToHome} />
+      <Footer onNavigateToHome={onBackToHome} onNavigateToAdmin={onNavigateToAdmin} />
     </div>
   );
 };

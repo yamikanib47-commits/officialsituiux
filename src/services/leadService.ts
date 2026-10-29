@@ -1,3 +1,12 @@
+export interface LeadNote {
+  id: string;
+  author: string;
+  text: string;
+  createdAt: string;
+}
+
+export type LeadPipelineStage = 'new' | 'contacted' | 'test-drive' | 'negotiation' | 'won' | 'lost';
+
 export interface BuyLead {
   id: string;
   referenceId: string;
@@ -13,7 +22,10 @@ export interface BuyLead {
   whatsappNumber: string;
   notes?: string;
   preferredFuel?: string;
-  status: 'Pending Coordinator Review' | 'Dispatched to Sourcing Agents' | 'Contacted';
+  status: 'Pending Coordinator Review' | 'Dispatched to Sourcing Agents' | 'Contacted' | string;
+  pipelineStage?: LeadPipelineStage;
+  assignedAgent?: string;
+  leadNotes?: LeadNote[];
 }
 
 export interface SellLead {
@@ -34,7 +46,11 @@ export interface SellLead {
   sellerName: string;
   whatsappNumber: string;
   photosCount: number;
-  status: 'Pending Inspection' | 'Shared with Verified Agents' | 'Offer Under Review';
+  notes?: string;
+  status: 'Pending Inspection' | 'Shared with Verified Agents' | 'Offer Under Review' | string;
+  pipelineStage?: LeadPipelineStage;
+  assignedAgent?: string;
+  leadNotes?: LeadNote[];
 }
 
 export interface AgentLead {
@@ -45,14 +61,20 @@ export interface AgentLead {
   agencyName: string;
   contactPerson: string;
   whatsappNumber: string;
+  location?: string;
   operatingTowns: string[];
   specializations: string[];
   experienceYears: string;
   notes?: string;
-  status: 'Application Received' | 'Credentials Under Review' | 'Approved Sourcing Partner';
+  status: 'Application Received' | 'Credentials Under Review' | 'Approved Sourcing Partner' | string;
+  pipelineStage?: LeadPipelineStage;
+  assignedAgent?: string;
+  leadNotes?: LeadNote[];
 }
 
+
 export type AnyLead = BuyLead | SellLead | AgentLead;
+
 
 const STORAGE_KEY = 'autoace_zed_leads_v1';
 
@@ -240,4 +262,80 @@ function syncLeadLocally(lead: AnyLead) {
 
 export function getAllLeads(): AnyLead[] {
   return getStoredLeads();
+}
+
+export function updateLead(id: string, updates: Partial<AnyLead>): AnyLead | null {
+  const current = getStoredLeads();
+  const index = current.findIndex((l) => l.id === id);
+  if (index === -1) return null;
+
+  const updatedLead = { ...current[index], ...updates };
+  current[index] = updatedLead as AnyLead;
+  saveLeadsToStorage(current);
+  return updatedLead as AnyLead;
+}
+
+export function deleteLead(id: string): boolean {
+  const current = getStoredLeads();
+  const filtered = current.filter((l) => l.id !== id);
+  if (filtered.length !== current.length) {
+    saveLeadsToStorage(filtered);
+    return true;
+  }
+  return false;
+}
+
+export function addLeadNote(id: string, text: string, author: string = 'Admin Coordinator'): LeadNote | null {
+  const current = getStoredLeads();
+  const index = current.findIndex((l) => l.id === id);
+  if (index === -1) return null;
+
+  const newNote: LeadNote = {
+    id: `note-${Date.now()}`,
+    author,
+    text,
+    createdAt: new Date().toISOString(),
+  };
+
+  const lead = current[index];
+  const existingNotes = lead.leadNotes || [];
+  current[index] = {
+    ...lead,
+    leadNotes: [newNote, ...existingNotes],
+  } as AnyLead;
+
+  saveLeadsToStorage(current);
+  return newNote;
+}
+
+export type ManualLeadInput =
+  | (Partial<BuyLead> & { type: 'buy'; notes?: string })
+  | (Partial<SellLead> & { type: 'sell'; notes?: string })
+  | (Partial<AgentLead> & { type: 'agent'; notes?: string });
+
+export function createManualLead(leadData: ManualLeadInput): AnyLead {
+  const prefix = leadData.type === 'buy' ? 'BUY' : leadData.type === 'sell' ? 'SELL' : 'AGT';
+  const newLead: AnyLead = {
+    id: `manual-${Date.now()}`,
+    referenceId: generateRef(prefix),
+    createdAt: new Date().toISOString(),
+    pipelineStage: leadData.pipelineStage || 'new',
+    assignedAgent: leadData.assignedAgent || 'Unassigned',
+    leadNotes: leadData.notes
+
+
+      ? [
+          {
+            id: `note-${Date.now()}`,
+            author: 'Admin Intake',
+            text: leadData.notes,
+            createdAt: new Date().toISOString(),
+          },
+        ]
+      : [],
+    ...(leadData as any),
+  };
+
+  syncLeadLocally(newLead);
+  return newLead;
 }

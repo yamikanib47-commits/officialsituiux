@@ -20,8 +20,9 @@ import { BuyACarPage } from './pages/BuyACarPage';
 import { SellACarPage } from './pages/SellACarPage';
 import { ShowroomPage } from './pages/ShowroomPage';
 import { CarDetailPage } from './pages/CarDetailPage';
+import { AdminDashboardPage } from './pages/AdminDashboardPage';
 
-type ActivePage = 'home' | 'buy' | 'sell' | 'showroom' | 'detail';
+type ActivePage = 'home' | 'buy' | 'sell' | 'showroom' | 'detail' | 'admin';
 
 export default function App() {
   const detectDealId = (): string => {
@@ -44,6 +45,9 @@ export default function App() {
   const detectPage = (): ActivePage => {
     const path = window.location.pathname;
     const hash = window.location.hash;
+    if (path.includes('admin') || hash.includes('admin') || window.location.search.includes('admin')) {
+      return 'admin';
+    }
     if (path.includes('/deal') || hash.includes('deal=') || window.location.search.includes('deal=')) {
       return 'detail';
     }
@@ -58,6 +62,7 @@ export default function App() {
     }
     return 'home';
   };
+
 
   const detectVehicleQuery = (): string => {
     try {
@@ -124,6 +129,22 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const navigateToAdmin = () => {
+    window.history.pushState({}, '', '/admin');
+    setActivePage('admin');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  if (activePage === 'admin') {
+    return (
+      <AdminDashboardPage
+        onBackToHome={navigateToHome}
+        onNavigateToShowroom={navigateToShowroom}
+        onNavigateToDeal={navigateToDeal}
+      />
+    );
+  }
+
   if (activePage === 'detail') {
     return (
       <CarDetailPage
@@ -140,6 +161,7 @@ export default function App() {
         onNavigateToSell={navigateToSell}
         onNavigateToShowroom={navigateToShowroom}
         onNavigateToDeal={navigateToDeal}
+        onNavigateToAdmin={navigateToAdmin}
       />
     );
   }
@@ -159,9 +181,11 @@ export default function App() {
         onNavigateToBuy={navigateToBuy}
         onNavigateToSell={navigateToSell}
         onNavigateToDeal={navigateToDeal}
+        onNavigateToAdmin={navigateToAdmin}
       />
     );
   }
+
 
   return (
     <div className="min-h-screen bg-white text-slate-900 font-sans flex flex-col selection:bg-[#8574ff] selection:text-neutral-950">
@@ -171,6 +195,7 @@ export default function App() {
         onNavigateToBuy={navigateToBuy}
         onNavigateToSell={navigateToSell}
         onNavigateToShowroom={navigateToShowroom}
+        onNavigateToAdmin={navigateToAdmin}
       />
 
       <main className="flex-grow">
@@ -206,7 +231,7 @@ export default function App() {
       </main>
 
       {/* 12. Full Comprehensive Footer */}
-      <Footer onNavigateToHome={navigateToHome} />
+      <Footer onNavigateToHome={navigateToHome} onNavigateToAdmin={navigateToAdmin} />
 
       {/* 13. Sticky Bottom Promotional Bar */}
       <BottomStickyBanner />

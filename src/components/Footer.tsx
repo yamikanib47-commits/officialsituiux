@@ -8,6 +8,7 @@ interface FooterProps {
   onOpenCoordinatorPortal?: () => void;
   onNavigateToBuy?: () => void;
   onNavigateToSell?: () => void;
+  onNavigateToAdmin?: () => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({
@@ -16,7 +17,9 @@ export const Footer: React.FC<FooterProps> = ({
   onOpenCoordinatorPortal,
   onNavigateToBuy,
   onNavigateToSell,
+  onNavigateToAdmin,
 }) => {
+
   return (
     <footer className="bg-[#111111] text-white pt-12 pb-20 border-t border-neutral-800">
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
@@ -95,8 +98,15 @@ export const Footer: React.FC<FooterProps> = ({
                 </button>
               </li>
               <li>
-                <button type="button" onClick={onOpenCoordinatorPortal} className="hover:text-white hover:underline text-left text-neutral-400">
-                  Lead Management Portal
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (onNavigateToAdmin) onNavigateToAdmin();
+                    else if (onOpenCoordinatorPortal) onOpenCoordinatorPortal();
+                  }}
+                  className="hover:text-white hover:underline text-left text-neutral-400 cursor-pointer"
+                >
+                  Admin Dashboard (Analytics, CMS, CRM)
                 </button>
               </li>
             </ul>

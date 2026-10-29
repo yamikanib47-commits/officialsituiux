@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { SHOWROOM_CARS, ShowroomCar } from '../data/showroomData';
+import { getInventoryCars } from '../services/inventoryService';
 import {
   ChevronLeft,
   ChevronRight,
@@ -41,6 +42,7 @@ interface CarDetailPageProps {
   onNavigateToSell: (carPhrase?: string) => void;
   onNavigateToShowroom: () => void;
   onNavigateToDeal: (carId: string) => void;
+  onNavigateToAdmin?: () => void;
 }
 
 export const CarDetailPage: React.FC<CarDetailPageProps> = ({
@@ -51,12 +53,16 @@ export const CarDetailPage: React.FC<CarDetailPageProps> = ({
   onNavigateToSell,
   onNavigateToShowroom,
   onNavigateToDeal,
+  onNavigateToAdmin,
 }) => {
   // Find car by carId, fallback to audi-a3-sportback
+  const allCars = getInventoryCars();
   const car: ShowroomCar =
-    SHOWROOM_CARS.find((c) => c.id === carId) ||
-    SHOWROOM_CARS.find((c) => c.id === 'audi-a3-sportback') ||
+    allCars.find((c) => c.id === carId) ||
+    allCars.find((c) => c.id === 'audi-a3-sportback') ||
+    allCars[0] ||
     SHOWROOM_CARS[0];
+
 
   // Gallery active index & Lightbox modal
   const [activePhotoIdx, setActivePhotoIdx] = useState(0);
@@ -158,7 +164,9 @@ export const CarDetailPage: React.FC<CarDetailPageProps> = ({
         onNavigateToBuy={onNavigateToBuy}
         onNavigateToSell={onNavigateToSell}
         onNavigateToShowroom={onNavigateToShowroom}
+        onNavigateToAdmin={onNavigateToAdmin}
       />
+
 
       {/* Share Toast */}
       {showShareNotification && (
@@ -1628,7 +1636,7 @@ export const CarDetailPage: React.FC<CarDetailPageProps> = ({
       )}
 
       {/* 5. Universal Footer */}
-      <Footer onNavigateToHome={onNavigateToHome || onBack} />
+      <Footer onNavigateToHome={onNavigateToHome || onBack} onNavigateToAdmin={onNavigateToAdmin} />
     </div>
   );
 };
